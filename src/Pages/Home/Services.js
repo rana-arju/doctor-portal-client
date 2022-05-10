@@ -5,10 +5,10 @@ import whitening from "../../assets/images/whitening.png"
 import Service from './Service';
 const Services = () => {
     return (
-        <div className='container my-20'>
+        <div className='container my-10 md:my-20'>
             <div className="text-center mb-5">
                 <p className='uppercase text-primary'>our services</p>
-                <h3 className='capitalize text-2xl text-accent'>services we provide</h3>
+                <h3 className='capitalize text-3xl text-accent'>services we provide</h3>
             </div>
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
             <Service img={fluoride} serviceTitle="Fluoride Treatment" serviceDes="Lorem Ipsum is simply dummy printing and typesetting indust Ipsum has been the" />
