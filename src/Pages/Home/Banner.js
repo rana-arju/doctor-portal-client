@@ -3,7 +3,7 @@ import chair from '../../assets/images/chair.png';
 const Banner = () => {
     return (
        <div className="hero max-h-screen ">
-        <div className="hero-content container flex-col  lg:flex-row-reverse lg:my-10 ">
+        <div className="hero-content container flex-col mb-5 lg:flex-row-reverse lg:my-10 ">
             <img src={chair} alt="..." className="w-fit rounded-lg shadow-2xl md:w-6/12" />
             <div>
             <h1 className="font-bold  text-base md:text-4xl ">Your New Smile Starts Here</h1>
