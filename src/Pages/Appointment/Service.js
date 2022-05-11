@@ -1,19 +1,23 @@
 import React from 'react';
 
-const Service = ({service}) => {
+const Service = ({service, setTreatment}) => {
     const {name, slots} = service;
     return (
-    <div class="card  bg-base-100 shadow-xl">
-        <div class="card-body text-center">
-            <h2 class="card-title justify-center text-xl text-secondary">{name}</h2>
+    <div className="card  bg-base-100 shadow-xl">
+        <div className="card-body text-center">
+            <h2 className="card-title justify-center text-xl text-secondary">{name}</h2>
             <p>
                 {
                     slots.length > 0 ?  <span>{slots[0]}</span> : <span className='text-red-400 text-bold'>Try another date</span>
                 }
             </p>
             <p>{slots.length} {slots.length > 1 ? "Spaces Available" : "Space Available"}</p>
-            <div class="card-actions justify-center">
-           <button disabled={slots.length === 0} className="btn mt-3 btn-primary bg-gradient-to-r from-primary to-secondary text-white ">Book Appointment</button>
+            <div className="card-actions justify-center">
+            <label htmlFor="booking-modal"
+            disabled={slots.length === 0}
+            className="btn mt-3 btn-modal btn-primary bg-gradient-to-r from-primary to-secondary text-white "
+            onClick={()=> setTreatment(service)}>Book Appointment</label>
+           
             </div>
         </div>
     </div>
