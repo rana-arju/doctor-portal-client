@@ -12,7 +12,8 @@ const Header = () => {
         <li><Link to="/logout">Logout</Link></li>
     </>
     return (
-       <div className="navbar bg-base-100 container mx-auto">
+      <div className='sticky top-0 z-30  bg-white'>
+       <div className="navbar bg-base-100 container mx-auto ">
   <div className="navbar-start">
     <div className="dropdown">
       <label tabIndex="0" className="lg:hidden">
@@ -29,6 +30,7 @@ const Header = () => {
      {menuItems}
     </ul>
   </div>
+</div>
 </div>
     );
 };

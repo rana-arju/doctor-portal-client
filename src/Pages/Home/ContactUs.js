@@ -7,16 +7,16 @@ const ContactUs = () => {
             <h4 className='capitalize text-lg text-primary'>Contact Us</h4>
             <h2 className='capitalize text-3xl'>Stay connected with us</h2>
         </div>
-            <div className='w-full px-3 md:2/5 md:mx-auto'>
+            <div className='w-full px-3 md:w-2/5 md:mx-auto'>
                 <form>
                 <div>
-                <input type="email" placeholder="Enter Your Eamil" class="input input-bordered w-full  block mb-5" />
+                <input type="email" placeholder="Enter Your Eamil" className="input input-bordered w-full  block mb-5" />
                 </div>                    
                <div>
-                <input type="text" placeholder="Subject" class="input form-control input-bordered w-full  block mb-5" />
+                <input type="text" placeholder="Subject" className="input form-control input-bordered w-full  block mb-5" />
                </div>
-                <div class="form-control mb-5">
-                <textarea class="textarea textarea-bordered h-32" placeholder="Your Message"></textarea>
+                <div className="form-control mb-5">
+                <textarea className="textarea textarea-bordered h-32" placeholder="Your Message"></textarea>
                 </div>
                 <div className='text-center'>
                 <button className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white" type='submit'>send message</button>
