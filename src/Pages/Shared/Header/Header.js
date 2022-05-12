@@ -1,15 +1,24 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+import auth from '../../../firebase.init';
 
 const Header = () => {
+  const [user, loading, error] = useAuthState(auth);
+  const logout = () => {
+    signOut(auth);
+  };
     const menuItems = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
         <li><Link to="/appointment">Appointment</Link></li>
         <li><Link to="/reviews">Reviews</Link></li>
         <li><Link to="/contact">Contact</Link></li>
-        <li><Link to="/login">Login/Reg</Link></li>
-        <li><Link to="/logout">Logout</Link></li>
+        {
+          user ? <li><button onClick={logout}>Logout</button></li>
+          : <li><Link to="/login">Login/Reg</Link></li>
+        }
     </>
     return (
       <div className='sticky top-0 z-30  bg-white'>
@@ -23,7 +32,7 @@ const Header = () => {
        {menuItems}
       </ul>
     </div>
-    <a className="btn btn-ghost normal-case text-xl">Doctor Portal</a>
+    <a className="btn btn-ghost normal-case text-xl" href='..'>Doctor Portal</a>
   </div>
   <div className="navbar-end hidden lg:flex">
     <ul className="menu menu-horizontal p-0">
