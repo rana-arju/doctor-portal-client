@@ -1,13 +1,17 @@
 import React from 'react';
 import SocialLogin from './SocialMedia/SocialLogin';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading/Loading';
 import { toast } from 'react-toastify';
 
 const Registation = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    let from = location.state?.from?.pathname || "/";
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     const [
     createUserWithEmailAndPassword,
     user,
@@ -16,20 +20,23 @@ const Registation = () => {
     ] = useCreateUserWithEmailAndPassword(auth);
 const { register, formState: { errors }, handleSubmit } = useForm();
 let RegErrror;
-if (error) {
-   RegErrror = <p className='text-red-500'>{error.message}</p>
+if (error || updateError) {
+   RegErrror = <p className='text-red-500'>{error?.message || updateError?.message}</p>
   }
-  if (loading) {
-    return <p className='h-40 mt-10'>{<Loading />}</p>
+  if (loading || updating) {
+    return <div className='h-40 mt-10'>{<Loading />}</div>
   }
   if (user) {
+    navigate(from, { replace: true });
     return toast.success('Thank You! Registation Successful')
   }
-      const onSubmit = event => {
-          const email = event.email;
-          const password = event.password;
-        createUserWithEmailAndPassword(email, password);
-      };
+const onSubmit = async(event) => {
+    const email = event.email;
+    const password = event.password;
+    await createUserWithEmailAndPassword(email, password);
+    await updateProfile({ displayName: event.fullName});
+    navigate('/appointment');
+};
     return (
         <div className='container flex h-1/2 md:h-screen justify-center items-center'>
             <div className="card w-full md:w-2/5 bg-base-100 shadow-xl">
@@ -77,7 +84,7 @@ if (error) {
                 <div className='text-center'>
                     <button className="btn btn-block btn-primary bg-gradient-to-r from-primary to-secondary text-white" type='submit'>Register</button>
                 </div>
-                <p className='my-2 text-lg'>Already Have an account? <span className='link'><Link to="/login">Please Login</Link></span> </p>
+                <p className='my-2 text-lg'>Already Have an account? <span className='link text-primary'><Link to="/login">Please Login</Link></span> </p>
                 </form>
                 <div className="divider">OR</div>
                <SocialLogin />

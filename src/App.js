@@ -10,6 +10,7 @@ import Appointment from './Pages/Appointment/Appointment';
 import NotFound from "./Pages/NotFound/NotFound";
 import Footer from "./Pages/Shared/Footer/Footer";
 import { ToastContainer} from 'react-toastify';
+import RequiredAuth from "./Pages/Shared/RequiredAuth/RequiredAuth";
 function App() {
   return (
     <div>
@@ -17,7 +18,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/appointment" element={<Appointment />} />
+        <Route path="/appointment" element={
+        <RequiredAuth>
+            <Appointment />
+        </RequiredAuth>
+        } />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registation />} />

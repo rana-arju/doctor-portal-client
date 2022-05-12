@@ -3,10 +3,14 @@ import { FcGoogle} from 'react-icons/fc';
 import { BsFacebook} from 'react-icons/bs';
 import { useSignInWithGoogle,  useSignInWithFacebook } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
-  import {toast} from 'react-toastify';
+import {toast} from 'react-toastify';
 import Loading from '../../Shared/Loading/Loading';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SocialLogin = () => {
+const navigate = useNavigate();
+const location = useLocation();
+let from = location.state?.from?.pathname || "/";
 const [signInWithGoogle, Guser, Gloading, Gerror] = useSignInWithGoogle(auth);
 const [signInWithFacebook, Fuser, Floading, Ferror] =  useSignInWithFacebook(auth);
 let socialLoginError;
@@ -18,9 +22,9 @@ if (Gerror || Ferror) {
   }
   
   if (Guser || Fuser) {
-    return (
-        toast.success('Thank You for Joining Us!')
-    );
+     navigate(from, { replace: true });
+    return toast.success('Thank You for Joining Us!')
+
   }
     return (
         <div>

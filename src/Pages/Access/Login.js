@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from './SocialMedia/SocialLogin';
 import { useForm } from "react-hook-form";
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -8,6 +8,9 @@ import Loading from '../Shared/Loading/Loading';
 import { toast } from 'react-toastify';
 
 const Login = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    let from = location.state?.from?.pathname || "/";
     const [
     signInWithEmailAndPassword,
     user,
@@ -25,9 +28,10 @@ const Login = () => {
         errorMessage = error.message;
   }
   if (loading) {
-    return <p className='h-40 mt-10'>{<Loading />}</p>
+    return <div className='h-40 mt-10'>{<Loading />}</div>
   }
   if (user) {
+    navigate(from, { replace: true });
     return toast.success('Thank You! Login SuccessFull')
   }
     return (
@@ -71,7 +75,7 @@ const Login = () => {
                 <div className='text-center'>
                     <button className="btn btn-block btn-primary bg-gradient-to-r from-primary to-secondary text-white" type='submit'>Login</button>
                 </div>
-                    <p className='my-2 text-lg'>New user on Doctor Portal? <span className='link'><Link to="/register">Please Register</Link></span></p>
+                    <p className='my-2 text-lg'>New To Doctor Portal? <span className='link text-primary'><Link to="/register">Please Register</Link></span></p>
                 </form>
                   <div className="divider">OR</div>
 
