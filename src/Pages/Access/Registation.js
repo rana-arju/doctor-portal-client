@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SocialLogin from './SocialMedia/SocialLogin';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
@@ -6,6 +6,7 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-fireb
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading/Loading';
 import { toast } from 'react-toastify';
+import useToken from '../../hooks/useToken';
 
 const Registation = () => {
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Registation = () => {
     error,
     ] = useCreateUserWithEmailAndPassword(auth);
 const { register, formState: { errors }, handleSubmit } = useForm();
+const [token] = useToken(user);
 let RegErrror;
 if (error || updateError) {
    RegErrror = <p className='text-red-500'>{error?.message || updateError?.message}</p>
@@ -26,7 +28,7 @@ if (error || updateError) {
   if (loading || updating) {
     return <div className='h-40 mt-10'>{<Loading />}</div>
   }
-  if (user) {
+  if (token) {
     navigate(from, { replace: true });
     return toast.success('Thank You! Registation Successful')
   }
@@ -35,7 +37,7 @@ const onSubmit = async(event) => {
     const password = event.password;
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: event.fullName});
-    navigate('/appointment');
+
 };
     return (
         <div className='container flex h-1/2 md:h-screen justify-center items-center'>

@@ -8,6 +8,7 @@ const Header = () => {
   const [user, loading, error] = useAuthState(auth);
   const logout = () => {
     signOut(auth);
+    localStorage.removeItem('accessToken');
   };
     const menuItems = <>
         <li><Link to="/">Home</Link></li>
@@ -15,6 +16,9 @@ const Header = () => {
         <li><Link to="/appointment">Appointment</Link></li>
         <li><Link to="/reviews">Reviews</Link></li>
         <li><Link to="/contact">Contact</Link></li>
+        {
+          user && <li><Link to="/deshboard">Deshboard</Link></li>
+        }
         {
           user ? <li><button onClick={logout}>Logout</button></li>
           : <li><Link to="/login">Login/Reg</Link></li>
@@ -38,6 +42,13 @@ const Header = () => {
     <ul className="menu menu-horizontal p-0">
      {menuItems}
     </ul>
+  </div>
+  <div className="navbar-end lg:w-0">
+      <div className="flex-none lg:hidden">
+        <label htmlFor="deshboard-sidebar" className="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </label>
+      </div>
   </div>
 </div>
 </div>

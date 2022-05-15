@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from './SocialMedia/SocialLogin';
 import { useForm } from "react-hook-form";
@@ -6,6 +6,7 @@ import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading/Loading';
 import { toast } from 'react-toastify';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Login = () => {
     loading,
     error,
     ] = useSignInWithEmailAndPassword(auth);
+    const [token] = useToken(user);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = data => {
         const email = data.email;
@@ -27,13 +29,16 @@ const Login = () => {
     if (error) {
         errorMessage = error.message;
   }
-  if (loading) {
-    return <div className='h-40 mt-10'>{<Loading />}</div>
-  }
-  if (user) {
+
+if (token) {
     navigate(from, { replace: true });
     return toast.success('Thank You! Login SuccessFull')
   }
+  if (loading) {
+    return <div className='h-40 mt-10'>{<Loading />}</div>
+  }
+ 
+
     return (
         <div className='container flex h-1/2 md:h-screen justify-center items-center'>
             <div className="card w-full md:w-2/5 bg-base-100 shadow-xl">

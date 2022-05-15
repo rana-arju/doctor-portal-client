@@ -2,15 +2,22 @@ import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import BookingModel from './BookingModel';
 import Service from './Service';
-
+import { useQuery } from 'react-query'
+import Loading from '../Shared/Loading/Loading';
+import { toast } from 'react-toastify';
 const AvailableAppointment = ({date}) => {
-    const [services, setService] = useState([]);
+    // const [services, setService] = useState([]);
     const [treatments, setTreatment] = useState(null);
-    useEffect(() => {
-        fetch('http://localhost:5000/services')
-        .then(res => res.json())
-        .then(data => setService(data))
-    },[])
+    const formattedDate = format(date, 'PP');
+    const { isLoading, error, data: services } = useQuery(['available', formattedDate], () =>
+     fetch(`http://localhost:5000/available?date=${formattedDate}`).then(res =>res.json())
+   )
+    if(isLoading){
+        return <Loading />
+    }
+    if(error){
+        return toast.error(error.message);
+    }
     return (
         <div className='container mb-10'>
             <h2 className='text-xl text-center text-secondary capitalize my-10'>Available date: {format(date, 'PP')}</h2>
