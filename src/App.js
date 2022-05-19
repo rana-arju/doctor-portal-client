@@ -15,6 +15,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Deshboard from "./Pages/Deshboard/Deshboard";
 import MyAppointment from "./Pages/Deshboard/MyAppointment";
 import MyReview from "./Pages/Deshboard/MyReview";
+import AllUsers from "./Pages/Deshboard/AllUsers";
+import MyHistory from "./Pages/Deshboard/MyHistory";
+import RequireAdmin from "./Pages/Shared/RequireAdmin/RequireAdmin";
+import AddDoctor from "./Pages/Deshboard/AddDoctor";
+import ManageDoctor from "./Pages/Deshboard/ManageDoctor";
 
 
 function App() {
@@ -36,6 +41,10 @@ function App() {
         } >
             <Route index element={<MyAppointment />} />
             <Route path="review" element={<MyReview />} />
+            <Route path="history" element={<MyHistory />} />
+            <Route path="users" element={<AllUsers /> } />
+            <Route path="adddoctor" element={<AddDoctor />} />
+            <Route path="manage" element={<ManageDoctor />} />
         </Route>
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/login" element={<Login />} />

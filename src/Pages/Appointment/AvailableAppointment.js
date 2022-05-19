@@ -6,7 +6,6 @@ import { useQuery } from 'react-query'
 import Loading from '../Shared/Loading/Loading';
 import { toast } from 'react-toastify';
 const AvailableAppointment = ({date}) => {
-    // const [services, setService] = useState([]);
     const [treatments, setTreatment] = useState(null);
     const formattedDate = format(date, 'PP');
     const { isLoading, error, data: services } = useQuery(['available', formattedDate], () =>
