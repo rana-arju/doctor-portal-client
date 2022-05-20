@@ -6,7 +6,7 @@ import auth from '../../firebase.init';
 
 const BookingModel = ({treatments,date, setTreatment}) => {
     const [user, loading, error] = useAuthState(auth);
-    const {_id, name, slots} = treatments;
+    const {_id, name, slots, price} = treatments;
     const formattedDate = format(date, "PP")
     const handleBooking = event => {
         event.preventDefault();
@@ -17,6 +17,7 @@ const BookingModel = ({treatments,date, setTreatment}) => {
             treatment: name,
             date: formattedDate,
             slot,
+            price,
             patient: user.email,
             patientName: user.displayName,
             number,

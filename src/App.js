@@ -20,6 +20,7 @@ import MyHistory from "./Pages/Deshboard/MyHistory";
 import RequireAdmin from "./Pages/Shared/RequireAdmin/RequireAdmin";
 import AddDoctor from "./Pages/Deshboard/AddDoctor";
 import ManageDoctor from "./Pages/Deshboard/ManageDoctor";
+import Payment from "./Pages/Deshboard/Payment";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
             <Route index element={<MyAppointment />} />
             <Route path="review" element={<MyReview />} />
             <Route path="history" element={<MyHistory />} />
+            <Route path="payment/:id" element={<Payment />} />
             <Route path="users" element={<AllUsers /> } />
             <Route path="adddoctor" element={<AddDoctor />} />
             <Route path="manage" element={<ManageDoctor />} />
